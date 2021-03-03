@@ -15,4 +15,20 @@ def searchMusicArtist(name):
     r = requests.get(api_url, headers=headers)
     return r.json()
 
-print(searchMusicArtist("sia"))
+def getArtistID(name):
+    r = searchMusicArtist(name)
+    id = r["response"]["hits"][0]["result"]["primary_artist"]["id"]
+    return id
+
+def getTopTenSongs(name):
+    id = getArtistID(name)
+    api_url = "https://api.genius.com/artists/{}/songs".format(id)
+    headers = {"authorization": token}
+    params = {
+        "sort": "popularity",
+        "per_page": 10
+    }
+    r = requests.get(api_url, headers=headers, params=params)
+    return r.json()
+
+print(getTopTenSongs("sia"))
