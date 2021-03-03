@@ -52,8 +52,10 @@ def scrapeLyricText(name):
 
         current_lyrics = []
         for anchor in anchor_tags:
-            text = anchor.text
-            current_lyrics.append(text)
+            # Making sure that it only pulls the lyric, not the other information e.g. which section of lyric it is
+            if len(anchor.text) > 0 and anchor.text[0] != "[":
+                text = anchor.text.replace("\n"," ")
+                current_lyrics.append(text)
         song_lyrics.append(current_lyrics)
     return song_lyrics
 
