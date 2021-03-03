@@ -1,5 +1,6 @@
 import configparser
 import requests
+from bs4 import BeautifulSoup
 
 # Gets token from config.ini file
 def getAccessToken():
@@ -39,4 +40,21 @@ def getLyricsArray(name):
         lyrics_array.append(song["url"])
     return lyrics_array
 
-print(getLyricsArray("sia"))
+def scrapeLyricText(name):
+    links = getLyricsArray(name)
+    song_lyrics = []
+    for link in links:
+        page = requests.get(link)
+        soup = BeautifulSoup(page.content, 'html.parser')
+
+        lyrics_div = soup.find(class_="lyrics")
+        anchor_tags = lyrics_div.find_all('a')
+
+        current_lyrics = []
+        for anchor in anchor_tags:
+            text = anchor.text
+            current_lyrics.append(text)
+        song_lyrics.append(current_lyrics)
+    return song_lyrics
+
+print(scrapeLyricText("sia"))
