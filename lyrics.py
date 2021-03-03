@@ -31,4 +31,12 @@ def getTopTenSongs(name):
     r = requests.get(api_url, headers=headers, params=params)
     return r.json()
 
-print(getTopTenSongs("sia"))
+def getLyricsArray(name):
+    r = getTopTenSongs(name)
+    songs = r["response"]["songs"]
+    lyrics_array = []
+    for song in songs:
+        lyrics_array.append(song["url"])
+    return lyrics_array
+
+print(getLyricsArray("sia"))
