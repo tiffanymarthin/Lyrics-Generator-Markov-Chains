@@ -46,7 +46,7 @@ class MarkovLyrics:
                 current_word = next_word
         return lyrics
 
-data = ["I am Tiffany", "I am an engineer", "I like to code"]
-m = MarkovLyrics()
-m.populateMarkovChain(data)
-print(m.generateLyrics())
+# data = ["I am Tiffany", "I am an engineer", "I like to code"]
+# m = MarkovLyrics()
+# m.populateMarkovChain(data)
+# print(m.generateLyrics())
