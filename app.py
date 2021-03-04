@@ -13,7 +13,8 @@ def generateArtistLyrics(name):
     for song in songs:
         m.populateMarkovChain(song)
 
-    return m.generateLyrics()
+    lyrics = m.generateLyrics()
+    return lyrics.split("NEWLINE")
 
 
 @app.route('/', methods=['GET', 'POST'])
